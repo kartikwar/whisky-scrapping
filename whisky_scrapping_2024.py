@@ -199,10 +199,13 @@ if __name__ == "__main__":
 
     for ind, row in auction_df.iterrows():
         try:
+            status = auction_df['status']
+            if status == 1:
+                #skip the ones that were processed previously
+                continue
             prod_url = row['url']
             prod_info = get_prod_info(prod_url)
             auction_df = fill_df(auction_df, ind, prod_info)
-            # products.append(prod_info)
             auction_df.at[ind, 'status'] = 1
             if log_counter % 10 == 0:
                 auction_df.to_csv(dest_path, index=False )
@@ -210,27 +213,6 @@ if __name__ == "__main__":
             print(ex)
 
     auction_df.to_csv(dest_path, index=False )    
-
-
-    # for auc_url in auction_urls:
-
-    # # auction_url = 'https://www.whiskyhammer.com/auction/past/auc-68/?ps=500'
-
-    #     #get the url links of all the products on the website
-    #     #in this the count would be 500
-    #     products_links = get_product_links(auc_url)
-
-    #     #for each product get product attributes one by one
-    #     for prod_link in products_links:
-    #         #get product info here
-    #         try:
-    #             prod_info = get_prod_info(prod_link)
-    #             products.append(prod_info)
-    #         except Exception as ex:
-    #             print('ex')
-
-    # #save the final csv containing all info
-    # 
 
 
 
