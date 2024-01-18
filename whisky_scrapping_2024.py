@@ -212,7 +212,7 @@ if __name__ == "__main__":
         except Exception as ex:
             print(ex)
 
-    auction_df.to_csv(dest_path, index=False )    
+    auction_df.to_csv(dest_path, index=False )
 
 
 
